@@ -27,6 +27,17 @@ if(isset($_GET['action'])){
 		$memberController->inscribe();
 	}
 
+	elseif($_GET['action'] == "connect"){
+		$memberController = new MemberController();
+		$memberController->connect();
+	}
+
+	elseif($_GET['action'] == "deconnection"){
+		$memberController = new MemberController();
+		$memberController->deconnect();
+	}
+
+	
 } else{
 	require('view/frontend/indexView.php');
 }
