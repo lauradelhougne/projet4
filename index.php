@@ -1,5 +1,6 @@
 <?php
 require("controller/memberController.php");
+require("controller/adminController.php");
 
 if(isset($_GET['action'])){
 	if($_GET['action'] == "indexView"){
@@ -37,9 +38,60 @@ if(isset($_GET['action'])){
 		$memberController->deconnect();
 	}
 
-	
+
+
+	elseif($_GET['action'] == "admin"){
+		require('view/backend/adminViews/episodesAdmin.php');
+	}
+
+	elseif($_GET['action'] == "episodes"){
+		require('view/backend/adminViews/episodesAdmin.php');
+	}
+
+	elseif($_GET['action'] == "drafts"){
+		require('view/backend/adminViews/draftsAdmin.php');
+	}
+
+	elseif($_GET['action'] == "trash"){
+		require('view/backend/adminViews/trashAdmin.php');
+	}
+
+	elseif($_GET['action'] == "createEpisodes"){
+		$alert = "";
+		require('view/backend/adminViews/createEpisodeAdmin.php');
+	}
+
+	elseif($_GET['action'] == "createFormEpisode"){
+
+		$adminController = new AdminController();
+		$adminController->createEpisode();
+	}
+
+	elseif($_GET['action'] == "moveToTrash"){
+
+		$adminController = new AdminController();
+		$adminController->moveToTrash();
+	}
+
+	elseif($_GET['action'] == "restore"){
+
+		$adminController = new AdminController();
+		$adminController->restore();
+	}
+
+	elseif($_GET['action'] == "delete"){
+
+		$adminController = new AdminController();
+		$adminController->delete();
+	}
+
+	elseif($_GET['action'] == "coms"){
+		require('view/backend/adminViews/comsAdmin.php');
+	}
+
 } else{
 	require('view/frontend/indexView.php');
 }
 
 ?>
+

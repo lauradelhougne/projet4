@@ -1,4 +1,5 @@
-<?php ob_start();?>
+<?php $title="Inscription";
+ob_start();?>
 
 <div class="py-5 bg-dark">
     <h1 class='h1Admin'>Espace membre</h1>
