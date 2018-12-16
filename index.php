@@ -1,6 +1,7 @@
 <?php
 require("controller/memberController.php");
 require("controller/adminController.php");
+require("controller/commentController.php");
 
 if(isset($_GET['action'])){
 	if($_GET['action'] == "indexView"){
@@ -87,6 +88,23 @@ if(isset($_GET['action'])){
 
 	elseif($_GET['action'] == "coms"){
 		require('view/backend/adminViews/comsAdmin.php');
+	}
+
+	elseif($_GET['action'] == "postComment"){
+		$frontController = new CommentController();
+		$frontController->postComment();
+	}
+
+	elseif($_GET['action'] == "approuveComment"){
+
+		$commentController = new commentController();
+		$commentController->approuveComment();
+	}
+
+	elseif($_GET['action'] == "deleteComment"){
+
+		$commentController = new commentController();
+		$commentController->deleteComment();
 	}
 
 } else{

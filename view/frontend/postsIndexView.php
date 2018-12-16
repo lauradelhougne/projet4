@@ -25,42 +25,12 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-8 col-md-10 mx-auto">
-      <div class="post-preview">
-        <a href="index.php?action=post">
-          <h2 class="post-title">
-            EPISODE 3
-          </h2>
-          <h3 class="post-subtitle">
-            Et quoniam inedia gravi adflictabantur, locum petivere Paleas nomine, vergentem in mare, valido muro firmatum, ubi conduntur nunc usque commeatus distribui militibus omne latus Isauriae defendentibus adsueti.
-          </h3>
-        </a>
-        <p class="post-meta">Posté le 8/10/2018</p>
-      </div>
-      <hr>
-      <div class="post-preview">
-        <a href="index.php?action=post">
-          <h2 class="post-title">
-            EPISODE 2
-          </h2>
-          <h3 class="post-subtitle">
-            Et quoniam inedia gravi adflictabantur, locum petivere Paleas nomine, vergentem in mare, valido muro firmatum, ubi conduntur nunc usque commeatus distribui militibus omne latus Isauriae defendentibus adsueti.
-          </h3>
-        </a>
-        <p class="post-meta">Posté le 7/10/2018</p>
-      </div>
-      <hr>
-      <div class="post-preview">
-        <a href="index.php?action=post">
-          <h2 class="post-title">
-            EPISODE 1
-          </h2>
-          <h3 class="post-subtitle">
-            Et quoniam inedia gravi adflictabantur, locum petivere Paleas nomine, vergentem in mare, valido muro firmatum, ubi conduntur nunc usque commeatus distribui militibus omne latus Isauriae defendentibus adsueti.
-          </h3>
-        </a>
-        <p class="post-meta">Posté le 6/10/2018</p>
-      </div>
-      <hr>
+
+      <?php
+        $getList= new CommentController;
+        $getList->getEpisodesList();
+      ?>
+
       <!-- Pager -->
       <div class="clearfix">
         <a class="btn btn-primary float-right" href="#">Suite &rarr;</a>

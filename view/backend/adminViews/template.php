@@ -53,6 +53,7 @@
     <script src="public/vendor/jquery/jquery.js"></script>
     <script src="public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="public/js/script.js"></script>
+    <script src="public/js/ajax.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
   </body>
 

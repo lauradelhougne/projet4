@@ -1,5 +1,5 @@
 <?php
-	require(__DIR__."/../model/episodeAdminModel.php");
+	require(__DIR__."/../model/episodeModel.php");
 
 	class AdminController{
 
@@ -91,5 +91,8 @@
 			$trashList = new Episode;
 			$trashList->trashList();
 		}
+
+		
+
 	}
 ?>

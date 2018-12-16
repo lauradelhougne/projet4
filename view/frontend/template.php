@@ -85,6 +85,7 @@
     <script src="public/vendor/jquery/jquery.js"></script>
     <script src="public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="public/js/script.js"></script>
+    <script src="public/js/ajax.js"></script>
 
   </body>
 
