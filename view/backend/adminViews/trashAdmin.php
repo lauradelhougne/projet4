@@ -20,7 +20,7 @@ ob_start();?>
     </thead>
     <tbody>
       <?php
-        $getList= new AdminController;
+        $getList= new EpisodeController;
         $getList->getTrashList();
       ?>
     </tbody>

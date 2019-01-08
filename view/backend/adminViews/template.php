@@ -25,7 +25,7 @@
         <h2 class="navbar-brand" href="#" >TABLEAU DE BORD</h2>
         
         <div class="nav navbar-nav navbar-right">
-          <a class="deconnect" href="#" title="Déconnexion"><i class="fas fa-power-off" id="off"></i></a>
+          <a class="deconnect" href="index.php?action=deconnection" title="Déconnexion"><i class="fas fa-power-off" id="off"></i></a>
         </div>
       </nav>
       
@@ -37,8 +37,9 @@
           
             <div class="sidebar-wrapper col-md-2">
               <ul class="sidebar-nav">
-                <li><a id="article" href="index.php?action=episodes"><i class="fas fa-pen-nib"></i>EPISODES</a></li>
-                <li><a id="com" href="index.php?action=coms"><i class="fas fa-comment-dots"></i>COMMENTAIRES</a></li>
+                <li><a  href="index.php?action=episodes" <?php if(($_GET['action'] == 'admin') OR ($_GET['action'] == 'episodes') OR ($_GET['action'] == 'drafts') OR ($_GET['action'] == 'trash') OR ($_GET['action'] == 'createEpisodes')){echo "style='color: #ff0018;'";}?> id="article"><i class="fas fa-pen-nib"></i>EPISODES</a></li>
+                <li><a  href="index.php?action=coms" 
+                  <?php if($_GET['action'] == 'coms'){echo "style='color: #ff0018;'";}?> id="com"><i class="fas fa-comment-dots"></i>COMMENTAIRES</a></li>
                 <li style="margin-top: 50px;"><a id="retour"  href="index.php"><i class="fas fa-arrow-left"></i>Retour au blog</a></li>
               </ul>
               
@@ -58,3 +59,4 @@
   </body>
 
 </html>
+

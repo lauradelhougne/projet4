@@ -9,11 +9,7 @@
             <div class="card-body">
               <p>Inscrivez-vous et recevez un mail à chaque nouvel épisode publié !</p>
               <form action="" method="post">
-                  <div class="input-prepend">
-                      <input type="text" id="" name="" placeholder="votre@email.com">
-                  </div>
-                  <br />
-                  <input type="submit" value="S'inscrire" class="btn btn-large" />
+                  <input type="submit" value="S'inscrire" class="btn btn-large" style="margin: 5px;" />
               </form>
             </div>
           </div>    
@@ -51,7 +47,7 @@
 
         <p class="col-md-12 sm-12 text-center text-white"><a href="index.php?action=admin" style="color: white; text-decoration: none;">Administration</a></p>
       </div>
-      <!-- /.container -->
+
     </footer>
 
 

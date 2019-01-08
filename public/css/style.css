@@ -529,6 +529,16 @@ p.comment{
   margin-left: 1.5em;
 }
 
+.accessRefused{
+     color: #fc1736;
+    font-size: 1.6em;
+    margin-bottom: 0;
+  }
+
+#inputAdmin{
+  display: none;
+}
+
 @media only screen and (max-width: 768px){
   .h1Admin{
     margin-top: 40px;

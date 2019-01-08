@@ -83,11 +83,13 @@
 			$db = $this->dbConnect();
 			$q = $db->prepare('INSERT INTO episodes(title, content, draft, trash, date_create, date_modif) VALUES(:title, :content, :draft, :trash, NOW(), NOW() )');
 			$q->execute(array('title' => $this->title, 'content' => $this->content, 'draft' => ($this->draft)?1:0, 'trash' => ($this->trash)?1:0));
+			$q->closeCursor();
 		}
 
 		public function read($id){
 			$db = $this->dbConnect();
-			$q = $db->query('SELECT id, title, content, draft, trash, DATE_FORMAT(date_modif, \'%d/%m/%Y à %H:%i:%s\') AS date_modif FROM episodes WHERE id= "'.$id.'" ');
+			$q = $db->prepare('SELECT id, title, content, draft, trash, DATE_FORMAT(date_modif, \'%d/%m/%Y à %H:%i:%s\') AS date_modif FROM episodes WHERE id=:id');
+			$q->execute(array('id' => $id));
 			while ($datas = $q->fetch()){
 				$this->setId($id);
 				$this->setTitle($datas["title"]);
@@ -106,18 +108,23 @@
 				$db = $this->dbConnect();
 				$q = $db->prepare('UPDATE episodes SET title = :title, content = :content, draft = :draft, trash= :trash, date_modif = NOW() WHERE id= :id');
 				$q->execute(array('title' => $this->title, 'content' => $this->content, 'draft' => ($this->draft)?1:0, 'trash' => ($this->trash)?1:0, 'id' => $this->id));
+				$q->closeCursor();
 			}
 		}
 
 		public function delete($id){
 			$db = $this->dbConnect();
-			$q = $db->query('DELETE FROM episodes WHERE id= "'.$id.'" ');
+			$q = $db->prepare('DELETE FROM episodes WHERE id= :id ;
+							DELETE FROM comments WHERE id_episode= :idEpisode ');
+			$q->execute(array('id' => $id, 'idEpisode' => $id));
+			$q->closeCursor();
 		}
 
 		public function getContentForModify($id){
 			$alert ="";
 			$db = $this->dbConnect();
-			$q = $db->query('SELECT id, title, content FROM episodes WHERE id= "'.$id.'" ');
+			$q = $db->prepare('SELECT id, title, content FROM episodes WHERE id= :id ');
+			$q->execute(array('id' => $id));
 			while ($datas = $q->fetch()){
 				$this->setTitle($datas["title"]);
 				$this->setContent($datas["content"]);
@@ -210,6 +217,93 @@
 			
 			</script>
 			<?php
+		}
+
+		public function getEpisodesListFront(){
+			$db = $this->dbConnect();
+			$q = $db->query('SELECT id, title, content, DATE_FORMAT(date_create, \'%d/%m/%Y\') AS date_create FROM episodes WHERE (draft=0 AND trash=0) ORDER BY id DESC');
+
+			while ($datas = $q->fetch()){
+			?>
+				<div class="post-preview">
+			        <a href="index.php?action=post&id=<?php echo $datas['id']?>">
+			          <h2 class="post-title">
+			            <?php echo $datas['title']?>
+			          </h2>
+			          <h3 class="post-subtitle">
+			            <?php echo substr($datas['content'], 0, 200). " ..." ?>
+			          </h3>
+			        </a>
+			        <p class="post-meta">Posté le <?php echo $datas['date_create']?></p>
+			    </div>
+			    <hr>
+			<?php
+			} 
+			$q->closeCursor();
+		}
+
+		public function getEpisodeFront($id){
+			$db = $this->dbConnect();
+			$q = $db->prepare('SELECT id, title, content, DATE_FORMAT(date_create, \'%d/%m/%Y\') AS date_create FROM episodes WHERE id= :id');
+			$q->execute(array('id' => $id));
+			while ($datas = $q->fetch()){?>
+				
+				<header class="masthead" style="background-image: url('public/img/mountains.jpg')">
+				  <div class="overlay"></div>
+				  <div class="container">
+				    <div class="row">
+				      <div class="col-lg-10 col-md-11 mx-auto">
+				        <div class="site-heading">
+				          <h1><?php echo $datas['title']?></h1>
+				          <span class="subheading">BILLET SIMPLE POUR L'ALASKA</span>
+				        </div>
+				      </div>
+				    </div>
+				  </div>
+				</header>
+
+				<div class="container">
+
+				  <div class="row">
+
+				    <div class="col-lg-11" style="margin: auto;">
+
+				      <p>Publié le <?php echo $datas['date_create']?></p>
+
+				      <hr>
+
+				      <?php echo $datas['content']?>
+
+				      <hr>
+			<?php
+			}
+			$q->closeCursor();
+		}
+
+		public function getPrevPost($id){
+			$db = $this->dbConnect();
+			$q = $db->prepare('SELECT * FROM episodes where id IN (SELECT MAX(id) FROM episodes WHERE (id < :id AND draft=0 AND trash=0))');
+			$q->execute(array('id' => $id));
+			if($datas = $q->fetch()){
+				header("Location: index.php?action=post&id=".$datas['id']);
+				exit();
+			} else{
+				header("Location: index.php?action=post&id=". $id);
+				exit();
+			}
+		}
+
+		public function getNextPost($id){
+			$db = $this->dbConnect();
+			$q = $db->prepare('SELECT * FROM episodes where id IN (SELECT MIN(id) FROM episodes WHERE (id > :id AND draft=0 AND trash=0))');
+			$q->execute(array('id' => $id));
+			if($datas = $q->fetch()){
+				header("Location: index.php?action=post&id=".$datas['id']);
+				exit();
+			} else{
+				header("Location: index.php?action=post&id=". $id);
+				exit();
+			}
 		}
 	}
 

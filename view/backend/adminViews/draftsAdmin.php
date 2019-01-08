@@ -4,9 +4,9 @@ ob_start();?>
 <div class="container">
 	<div class="row">
 		<h1>Brouillons</h1>
-		<a href="index.php?action=createEpisodes" class="button" id="creer">Créer</a>
-		<a href="index.php?action=episodes" class="button" id="brouillon">Episodes</a>
-		<a href="index.php?action=trash" class="button" id="corbeille">Corbeille</a>
+		<a href="index.php?action=episodes" class="button" id="creer">Retour aux épisodes</a>
+		<div class="rightButtons">
+		<a href="index.php?action=trash" class="button" id="corbeille">Corbeille</a></div>
 	</div>
 </div>
 

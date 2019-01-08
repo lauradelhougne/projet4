@@ -5,16 +5,16 @@
 ?>
 
     <?php
-        $getEpisode= new CommentController;
-        $getEpisode->getEpisode();
+        $getEpisode= new EpisodeController;
+        $getEpisode->getEpisodeFront();
     ?>
 
       <div class="container">
         <div class="row" >
           <div class="prevNextContainer d-flex align-items-center">
-            <a href="" id="prev" title="Précédent"><i class="fas fa-chevron-left"></i></a>
+            <a href="index.php?action=prevPost&id=<?php echo $_GET['id']?>" id="prev" title="Précédent"><i class="fas fa-chevron-left"></i></a>
             <p>- EPISODE -</p>
-            <a href="" id="next" title="Suivant"><i class="fas fa-chevron-right"></i> </a>
+            <a href="index.php?action=nextPost&id=<?php echo $_GET['id']?>" id="next" title="Suivant"><i class="fas fa-chevron-right"></i> </a>
           </div>
         </div>
       </div>
@@ -27,7 +27,7 @@
         <div class="card-body">
           <form action="index.php?action=postComment" onsubmit="return verification()" method="post" id="commentForm">
             <div class="form-group">
-              <label style="font-weight: bold;"><?=$_COOKIE["pseudo"]?></label>
+              <label style="font-weight: bold;"><?= htmlspecialchars($_COOKIE["pseudo"])?></label>
               <input type="text" name="idEpisode" value="<?php 
                 if(isset($_GET['id'])){
                   echo $_GET['id'];
@@ -50,7 +50,7 @@
 
       <?php 
         $commentsList = new CommentController;
-        $commentsList->getCommentsList();
+        $commentsList->getCommentsListFront();
       ?>
       
 

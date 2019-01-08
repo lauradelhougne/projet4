@@ -6,9 +6,9 @@
 		private $_pseudo;
 		private $_comment;
 		private $_dateComment;
-		private $_undesirable;
 		private $_approuved;
-
+		private $_undesirable;
+		
 		public function getId(){
 			return $this->id;
 		}
@@ -61,16 +61,6 @@
 		      $this->dateComment = $dateComment;
 		}
 
-		public function getUndesirable(){
-			return $this->undesirable;
-		}
-
-		public function setUndesirable($undesirable){
-			if (is_bool($undesirable)) {
-   				$this->undesirable = $undesirable;
-			}
-		}
-
 		public function getApprouved(){
 			return $this->approuved;
 		}
@@ -81,27 +71,61 @@
 			}
 		}
 
+		public function getUndesirable(){
+			return $this->undesirable;
+		}
+
+		public function setUndesirable($undesirable){
+			if (is_bool($undesirable)) {
+   				$this->undesirable = $undesirable;
+			}
+		}
+
+		public function read($id){
+			$db = $this->dbConnect();
+			$q = $db->prepare('SELECT id, id_episode, pseudo, comment, DATE_FORMAT(date_comment, \'%d/%m/%Y à %H:%i:%s\') AS date_comment, approuved, undesirable FROM comments WHERE id= :id');
+			$q->execute(array('id' => $id));
+			while ($datas = $q->fetch()){
+				$this->setId($id);
+				$this->setIdEpisode($datas["id_episode"]);
+				$this->setPseudo($datas["pseudo"]);
+				$this->setComment($datas["comment"]);
+				$this->setDateComment($datas["date_comment"]);
+				$this->setApprouved($datas["approuved"]? true : false);
+				$this->setUndesirable($datas["undesirable"]? true : false);
+			}
+			$q->closeCursor();
+		}
 
 		public function create(){
 			$db = $this->dbConnect();
-			$q = $db->prepare('INSERT INTO comments(id_episode, pseudo, comment, date_comment, undesirable) VALUES(:id_episode, :pseudo, :comment,  NOW(), :undesirable )');
-			$q->execute(array('id_episode' => $this->idEpisode, 'pseudo' => $this->pseudo, 'comment' => $this->comment, 'undesirable' => ($this->undesirable)?1:0));
+			$q = $db->prepare('INSERT INTO comments(id_episode, pseudo, comment, date_comment, approuved, undesirable) VALUES(:id_episode, :pseudo, :comment,  NOW(), :approuved, :undesirable)');
+			$q->execute(array('id_episode' => $this->idEpisode, 'pseudo' => $this->pseudo, 'comment' => $this->comment, 'approuved' => ($this->approuved)?1:0, 'undesirable' => ($this->undesirable)?1:0));
+			$q->closeCursor();
 		}
 
 		public function update(){
-			echo "ok";
+			if (isset($this->id) && is_numeric($this->id))
+			{
+				
+				$db = $this->dbConnect();
+				$q = $db->prepare('UPDATE comments SET pseudo = :pseudo, comment = :comment, approuved = :approuved, undesirable = :undesirable WHERE id= :id');
+				$q->execute(array('pseudo' => $this->pseudo, 'comment' => $this->comment, 'approuved' => ($this->approuved)?1:0, 'undesirable' => ($this->undesirable)?1:0, 'id' => $this->id));
+				$q->closeCursor();
+			}
 		}
 
 		public function delete($id){
 			$db = $this->dbConnect();
-			$q = $db->query('DELETE FROM episodes WHERE id= "'.$id.'" ');
-
+			$q = $db->prepare('DELETE FROM episodes WHERE id= :id ');
+			$q->execute(array('id' =>$id));
+			$q->closeCursor();
 		}
 
 		public function getCommentsListAdmin(){
 
 			$db = $this->dbConnect();
-			$q = $db->query('SELECT id, id_episode, pseudo, comment, DATE_FORMAT(date_comment, \'%d/%m/%Y à %H:%i:%s\') AS date_comment, approuved, undesirable FROM comments ORDER BY CASE WHEN undesirable =\'1\' THEN date_comment END DESC');
+			$q = $db->query('SELECT id, id_episode, pseudo, comment, DATE_FORMAT(date_comment, \'%d/%m/%Y à %H:%i:%s\') AS date_comment, approuved, undesirable FROM comments WHERE(approuved=0 OR undesirable=1) ORDER BY undesirable DESC, date_comment DESC');
 
 			while ($datas = $q->fetch()){
 			?>
@@ -142,9 +166,10 @@
 			<?php
 		}
 
-		public function getCommentsList($idEpisode){
+		public function getCommentsListFront($idEpisode){
 			$db = $this->dbConnect();
-			$q = $db->query('SELECT id, pseudo, comment, DATE_FORMAT(date_comment, \'%d/%m/%Y\') AS date_comment FROM comments WHERE id_episode= "'.$idEpisode.'" ORDER BY id DESC');
+			$q = $db->prepare('SELECT id, id_episode, pseudo, comment, DATE_FORMAT(date_comment, \'%d/%m/%Y\') AS date_comment, approuved FROM comments WHERE (id_episode= :idEpisode AND approuved =1) ORDER BY id DESC');
+			$q->execute(array('idEpisode'=>$idEpisode));
 
 			while ($datas = $q->fetch()){
 			?>
@@ -152,7 +177,7 @@
 			        <div class="media-body">
 			          <h5 class="mt-0" style="font-size: 1.5em; color: black;"><?= $datas['pseudo'] ?></h5>
 			          <p class="comment"><?= $datas['comment'] ?></p>
-			          Posté le <?= $datas['date_comment'] ?> <a class="moderateButton" href="#">Signaler</a>
+			          Posté le <?= $datas['date_comment'] ?> <a class="moderateButton" href="index.php?action=moderateComment&id=<?php echo $datas['id']?>&idEpisode=<?php echo $datas['id_episode']?>">Signaler</a>
 			        </div>
 			        <hr>
 			    </div>
@@ -161,68 +186,6 @@
 			$q->closeCursor();
 		}
 
-
-		public function getEpisodesList(){
-			$db = $this->dbConnect();
-			$q = $db->query('SELECT id, title, content, DATE_FORMAT(date_create, \'%d/%m/%Y\') AS date_create FROM episodes WHERE (draft=0 AND trash=0) ORDER BY id DESC');
-
-			while ($datas = $q->fetch()){
-			?>
-				<div class="post-preview">
-			        <a href="index.php?action=post&id=<?php echo $datas['id']?>">
-			          <h2 class="post-title">
-			            <?php echo $datas['title']?>
-			          </h2>
-			          <h3 class="post-subtitle">
-			            <?php echo substr($datas['content'], 0, 200). " ..." ?>
-			          </h3>
-			        </a>
-			        <p class="post-meta">Posté le <?php echo $datas['date_create']?></p>
-			    </div>
-			    <hr>
-			<?php
-			} 
-			$q->closeCursor();
-		}
-
-		public function getEpisode($id){
-			$db = $this->dbConnect();
-			$q = $db->query('SELECT id, title, content, DATE_FORMAT(date_create, \'%d/%m/%Y\') AS date_create FROM episodes WHERE id= "'.$id.'" ');
-			while ($datas = $q->fetch()){?>
-				
-				<header class="masthead" style="background-image: url('public/img/mountains.jpg')">
-				  <div class="overlay"></div>
-				  <div class="container">
-				    <div class="row">
-				      <div class="col-lg-10 col-md-11 mx-auto">
-				        <div class="site-heading">
-				          <h1><?php echo $datas['title']?></h1>
-				          <span class="subheading">BILLET SIMPLE POUR L'ALASKA</span>
-				        </div>
-				      </div>
-				    </div>
-				  </div>
-				</header>
-
-				<div class="container">
-
-				  <div class="row">
-
-				    <div class="col-lg-11" style="margin: auto;">
-
-				      <p>Publié le <?php echo $datas['date_create']?></p>
-
-				      <hr>
-
-				      <?php echo $datas['content']?>
-
-				      <hr>
-			<?php
-			}
-			$q->closeCursor();
-		}
-
-		
 	}
 
 ?>

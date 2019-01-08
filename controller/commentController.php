@@ -3,29 +3,20 @@
 
 	class CommentController{
 
-		public function getCommentsList(){
+		public function getCommentsListFront(){
 			$getCommentsList = new Comment();
-			$getCommentsList->getCommentsList($_GET['id']);
-		}
-
-		public function getEpisodesList(){
-			$getEpisodesList = new Comment();
-			$getEpisodesList->getEpisodesList();
-		}
-
-		public function getEpisode(){
-			$getEpisodes = new Comment();
-			$getEpisodes->getEpisode($_GET['id']);
+			$getCommentsList->getCommentsListFront(htmlspecialchars($_GET['id']));
 		}
 
 		public function postComment(){
 			$postComment = new Comment;
-			$postComment->setIdEpisode(trim($_POST["idEpisode"]));
-			$postComment->setPseudo($_COOKIE["pseudo"]);
-			$postComment->setComment($_POST["comment"]);
+			$postComment->setIdEpisode(trim(htmlspecialchars($_POST["idEpisode"])));
+			$postComment->setPseudo(htmlspecialchars($_COOKIE["pseudo"]));
+			$postComment->setComment(htmlspecialchars($_POST["comment"]));
+			$postComment->setApprouved(false);
 			$postComment->setUndesirable(false);
 			$postComment->create();
-			header("Location: index.php?action=post&id=".$_POST['idEpisode']);
+			header("Location: index.php?action=post&id=".htmlspecialchars($_POST['idEpisode']));
 			exit();
 		}
 
@@ -36,12 +27,27 @@
 
 		public function deleteComment(){
 			$deleteComment = new Comment();
-			$deleteComment->delete($_GET['id']);
+			$deleteComment->delete(htmlspecialchars($_GET['id']));
 		}
 
 		public function approuveComment(){
-			$approuveComment = new Comment();
-			$approuveComment->update($_GET['id']);
+			$comment = new Comment();
+			$comment->read(htmlspecialchars($_GET['id']));
+			$comment->setApprouved(true);
+			$comment->setUndesirable(false);
+			$comment->update();
+			header("Location: index.php?action=coms");
+			exit();
+		}
+
+		public function moderateComment(){
+			$comment = new Comment();
+			$comment->read(htmlspecialchars($_GET['id']));
+			$comment->setApprouved(false);
+			$comment->setUndesirable(true);
+			$comment->update();
+			header("Location: index.php?action=post&id=".htmlspecialchars($_GET['idEpisode']));
+			exit();
 		}
 	}
 ?>

@@ -13,6 +13,7 @@
     <link href="public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
     <link href="public/css/style.css" rel="stylesheet">
+
   </head>
 
   <body>
@@ -79,13 +80,19 @@
 
     <?= $content ?>
 
-    <?= $footer ?>
+    <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="col-md-12 sm-12 text-center text-white"><a href="#" style="color: white;  text-decoration: none;">Mentions légales</a></p>
+      <p class="col-md-12 sm-12 text-center text-white">Copyright &copy; Tous droits reservés</p>
 
-    
+    <p class="col-md-12 sm-12 text-center text-white"><a href="index.php?action=admin" style="color: white; text-decoration: none;">Administration</a></p>
+    </div>
+    </footer>
+
+
     <script src="public/vendor/jquery/jquery.js"></script>
     <script src="public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="public/js/script.js"></script>
-    <script src="public/js/ajax.js"></script>
 
   </body>
 

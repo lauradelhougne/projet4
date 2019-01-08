@@ -5,8 +5,8 @@ ob_start();?>
 	<div class="row">
 		<h1>Créer</h1>
 		<a href="index.php?action=episodes" class="button" id="creer">Annuler</a>
-		<a href="index.php?action=drafts" class="button" id="brouillon">Brouillons</a>
-		<a href="index.php?action=trash" class="button" id="corbeille">Corbeille</a>
+		<div class="rightButtons">
+		<a href="index.php?action=trash" class="button" id="corbeille">Corbeille</a></div>
 	</div>
 </div>
 
@@ -17,7 +17,7 @@ ob_start();?>
     <input type="text" name="title" id="title" value="<?php 
       if(isset($_GET['id'])){
         $modif = new Episode;
-        $modif->getContentForModify($_GET['id']);
+        $modif->getContentForModify(htmlspecialchars($_GET['id']));
         echo $modif->getTitle();
       } ?>"><?= $alert ?><br>
 
@@ -30,7 +30,7 @@ ob_start();?>
     <textarea name="content" id="textarea"><?php 
       if(isset($_GET['id'])){
         $modif = new Episode;
-        $modif->getContentForModify($_GET['id']);
+        $modif->getContentForModify(htmlspecialchars($_GET['id']));
         echo $modif->getContent();
       } ?></textarea>
 

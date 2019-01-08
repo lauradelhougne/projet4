@@ -51,7 +51,7 @@
 
         <p class="col-md-12 sm-12 text-center text-white"><a href="index.php?action=admin" style="color: white; text-decoration: none;">Administration</a></p>
       </div>
-      <!-- /.container -->
+      
     </footer>
 
 

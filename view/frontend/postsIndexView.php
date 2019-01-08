@@ -6,7 +6,6 @@
 	ob_start();	
 ?>
 
-<!-- Page Header -->
 <header class="masthead" style="background-image: url('public/img/mountains.jpg')">
   <div class="overlay"></div>
   <div class="container">
@@ -21,17 +20,15 @@
   </div>
 </header>
 
-<!-- Main Content -->
 <div class="container">
   <div class="row">
     <div class="col-lg-8 col-md-10 mx-auto">
 
       <?php
-        $getList= new CommentController;
-        $getList->getEpisodesList();
+        $getList= new EpisodeController;
+        $getList->getEpisodesListFront();
       ?>
 
-      <!-- Pager -->
       <div class="clearfix">
         <a class="btn btn-primary float-right" href="#">Suite &rarr;</a>
       </div>
