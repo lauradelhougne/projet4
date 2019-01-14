@@ -22,11 +22,14 @@ ob_start();?>
     </thead>
     <tbody>
       <?php
-        $getList= new AdminController;
+        $getList= new EpisodeController;
         $getList->getDraftList();
       ?>
     </tbody>
   </table>
+ <?php
+        $getList->getDraftPagination();
+  ?>
 </div>
 
 

@@ -47,7 +47,7 @@
         <h5 class="card-header">Pour laisser un commentaire, <a href="index.php?action=connectionMemberView">connectez-vous</a> !</h5>
       </div>
     <?php } ?>
-
+      <a href id="ancreComs"></a>
       <?php 
         $commentsList = new CommentController;
         $commentsList->getCommentsListFront();

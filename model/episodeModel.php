@@ -136,7 +136,22 @@
 
 		public function episodeList(){
 			$db = $this->dbConnect();
-			$q = $db->query('SELECT id, title, content, DATE_FORMAT(date_create, \'%d/%m/%Y à %H:%i:%s\') AS date_create FROM episodes WHERE (draft=0 AND trash=0) ORDER BY id DESC');
+			$nbRows = $db->query("SELECT COUNT(*) FROM episodes WHERE (draft=0 AND trash=0) ORDER BY id DESC");
+			$result = $nbRows->fetch();
+			$count = $result[0];
+			$limit = 4;
+			if(isset($_GET['page'])){
+				$currentPage = intval($_GET['page']);
+				if($currentPage>$count){
+					$currentPage = $count;
+				}
+			}else{
+				$currentPage = 1;
+			}
+
+			$firstRow = ($currentPage - 1) * $limit;
+
+			$q = $db->query('SELECT id, title, content, DATE_FORMAT(date_create, \'%d/%m/%Y à %H:%i:%s\') AS date_create FROM episodes WHERE (draft=0 AND trash=0) ORDER BY id DESC LIMIT ' .$firstRow.', '.$limit. '');
 
 			while ($datas = $q->fetch()){
 			?>
@@ -153,9 +168,55 @@
 
 		}
 
+		public function getEpisodesPagination(){
+			$db = $this->dbConnect();
+			$nbRows = $db->query("SELECT COUNT(*) FROM episodes WHERE (draft=0 AND trash=0) ORDER BY id DESC");
+			$result = $nbRows->fetch();
+			$count = $result[0];  
+			$limit = 4;
+			$total_pages = ceil($count / $limit);
+
+			if(isset($_GET['page'])){
+				$currentPage = intval($_GET['page']);
+				if($currentPage>$count){
+					$currentPage = $count;
+				}
+			}else{
+				$currentPage = 1;
+			}
+
+			echo '<p align="center"> Page(s) : ';
+
+			for($i = 1; $i <= $total_pages; $i++){
+				if ($i == $currentPage){
+					echo '['.$i.'] ';
+				}else{
+					echo '<a href="index.php?action=episodes&page='.$i.'">'.$i.'</a> ';
+				}
+			}
+			echo '</p>';
+			$nbRows->closeCursor();
+		}
+
 		public function draftList(){
 			$db = $this->dbConnect();
-			$q = $db->query('SELECT id, title, content FROM episodes WHERE (draft=1 AND trash=0) ORDER BY id DESC');
+			$nbRows = $db->query("SELECT COUNT(*) FROM episodes WHERE (draft=1 AND trash=0) ORDER BY id DESC");
+			$result = $nbRows->fetch();
+			$count = $result[0]; 
+			$limit = 10;
+
+			if(isset($_GET['page'])){
+				$currentPage = intval($_GET['page']);
+				if($currentPage>$count){
+					$currentPage = $count;
+				}
+			}else{
+				$currentPage = 1;
+			}
+
+			$firstRow = ($currentPage - 1) * $limit;
+
+			$q = $db->query('SELECT id, title, content FROM episodes WHERE (draft=1 AND trash=0) ORDER BY id DESC LIMIT ' .$firstRow.', '.$limit. '');
 
 			while ($datas = $q->fetch()){
 			?>
@@ -170,11 +231,59 @@
 			<?php
 			} 
 			$q->closeCursor();
+
+			
+		}
+
+		public function getDraftPagination(){
+			$db = $this->dbConnect();
+			$nbRows = $db->query("SELECT COUNT(*) FROM episodes WHERE (draft=1 AND trash=0) ORDER BY id DESC");
+			$result = $nbRows->fetch();
+			$count = $result[0];  
+			$limit = 10;
+			$total_pages = ceil($count / $limit);
+
+			if(isset($_GET['page'])){
+				$currentPage = intval($_GET['page']);
+				if($currentPage>$count){
+					$currentPage = $count;
+				}
+			}else{
+				$currentPage = 1;
+			}
+
+			echo '<p align="center"> Page(s) : ';
+
+			for($i = 1; $i <= $total_pages; $i++){
+				if ($i == $currentPage){
+					echo '['.$i.'] ';
+				}else{
+					echo '<a href="index.php?action=drafts&page='.$i.'">'.$i.'</a>';
+				}
+			}
+			echo '</p>';
+			$nbRows->closeCursor();
 		}
 
 		public function trashList(){
 			$db = $this->dbConnect();
-			$q = $db->query('SELECT id, title, content FROM episodes WHERE trash=1 ORDER BY id DESC');
+			$nbRows = $db->query("SELECT COUNT(*) FROM episodes WHERE trash=1 ORDER BY id DESC");
+			$result = $nbRows->fetch();
+			$count = $result[0]; 
+			$limit = 10;
+
+			if(isset($_GET['page'])){
+				$currentPage = intval($_GET['page']);
+				if($currentPage>$count){
+					$currentPage = $count;
+				}
+			}else{
+				$currentPage = 1;
+			}
+
+			$firstRow = ($currentPage - 1) * $limit;
+			
+			$q = $db->query('SELECT id, title, content FROM episodes WHERE trash=1 ORDER BY id DESC LIMIT ' .$firstRow.', '.$limit. '');
 
 			while ($datas = $q->fetch()){
 			?>
@@ -214,14 +323,61 @@
 					    }
 					});
 				}
-			
 			</script>
 			<?php
 		}
 
+		public function getTrashPagination(){
+			$db = $this->dbConnect();
+			$nbRows = $db->query("SELECT COUNT(*) FROM episodes WHERE trash=1 ORDER BY id DESC");
+			$result = $nbRows->fetch();
+			$count = $result[0];  
+			$limit = 10;
+			$total_pages = ceil($count / $limit);
+
+			if(isset($_GET['page'])){
+				$currentPage = intval($_GET['page']);
+				if($currentPage>$count){
+					$currentPage = $count;
+				}
+			}else{
+				$currentPage = 1;
+			}
+
+			echo '<p align="center"> Page(s) : ';
+
+			for($i = 1; $i <= $total_pages; $i++){
+				if ($i == $currentPage){
+					echo '['.$i.'] ';
+				}else{
+					echo '<a href="index.php?action=trash&page='.$i.'">'.$i.'</a> ';
+				}
+			}
+			echo '</p>';
+			$nbRows->closeCursor();
+		}
+
 		public function getEpisodesListFront(){
 			$db = $this->dbConnect();
-			$q = $db->query('SELECT id, title, content, DATE_FORMAT(date_create, \'%d/%m/%Y\') AS date_create FROM episodes WHERE (draft=0 AND trash=0) ORDER BY id DESC');
+			$nbRows = $db->query("SELECT COUNT(*) FROM episodes WHERE (draft=0 AND trash=0) "); 
+			$result = $nbRows->fetch();
+			$count = $result[0];  
+			$limit = 3;
+			
+			$total_pages = ceil($count / $limit);
+
+			if(isset($_GET['page'])){
+				$currentPage = intval($_GET['page']);
+				if($currentPage>$count){
+					$currentPage = $count;
+				}
+			}else{
+				$currentPage = 1;
+			}
+
+			$firstRow = ($currentPage - 1) * $limit;
+
+			$q = $db->query('SELECT id, title, content, DATE_FORMAT(date_create, \'%d/%m/%Y\') AS date_create FROM episodes WHERE (draft=0 AND trash=0) ORDER BY id DESC LIMIT ' .$firstRow.', '.$limit. '');
 
 			while ($datas = $q->fetch()){
 			?>
@@ -240,6 +396,17 @@
 			<?php
 			} 
 			$q->closeCursor();
+
+			echo '<p align="center"> Page(s) : ';
+
+			for($i = 1; $i <= $total_pages; $i++){
+				if ($i == $currentPage){
+					echo '['.$i.'] ';
+				}else{
+					echo '<a href="index.php?action=postsIndexView&page='.$i.'">'.$i.'</a> ';
+				}
+			}
+			echo '</p>';
 		}
 
 		public function getEpisodeFront($id){

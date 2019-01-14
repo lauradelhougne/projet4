@@ -28,6 +28,9 @@ ob_start();?>
       ?>
     </tbody>
   </table>
+  <?php
+        $getList->getEpisodesPagination();
+  ?>
 </div>
 
 

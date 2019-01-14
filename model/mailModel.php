@@ -2,8 +2,8 @@
 	require_once("dbModel.php");
 
 	class Mail extends DbModel{
-		private $pseudo;
-		private $to;
+		private $_pseudo;
+		private $_to;
 		private $_subject;
 		private $_message;
 		private $_from;
@@ -61,10 +61,10 @@
 		    
 		}
 
-		public function mailMemberRegister(){
-			$to = $this->getTo();
+		public function mailMemberRegister($pseudo, $email){
+			$to = $email;
 			$subject = "Inscription membre réussie";
-			$message = "<p>Bonjour ".$this->getPseudo()."</p>,<br>
+			$message = "<p>Bonjour <?php echo $pseudo?></p>,<br>
 						<p>Votre inscription est réussie, et votre compte a été créé! </p>
 						<p>A bientot sur notre Blog</p>
 						<br>
@@ -79,7 +79,43 @@
 			//mail($to,$subject,$message,implode("\r\n", $headers));
 		}
 
-		
+		public function contactForm($name, $entreprise, $email, $phone, $message){
+			$to = $email;
+			$subject = "Demande de contact";
+			$message = "<p>Bonjour Mr Forteroche,</p><br>
+						<p>Vous avez reçu un message :</p>
+						<p>Nom : ".$name."</p>
+						<p>Entreprise : ".$entreprise."</p>
+						<p>Adresse mail : ".$email."</p>
+						<p>Telephone : ".$phone."</p>
+						<p>Message : ".$message."</p>
+						<br>";
+			 $headers[] = 'MIME-Version: 1.0';
+		     $headers[] = 'Content-type: text/html; charset=iso-8859-1';
+		    
+		     $headers[] = 'From: <delhougne.laura@outlook.fr>';
+		     $headers[] = 'Cc: delhougne.laura@outlook.fr';
+		     $headers[] = 'Bcc: delhougne.laura@outlook.fr';
+
+			//mail($to,$subject,$message,implode("\r\n", $headers));
+		}
+
+		public function newsletter($id){
+			$to = $this->getTo();
+			$subject = "Demande de contact";
+			$message = "<p>Bonjour,</p><br>
+						<p>Un nouvel épisode vient du roman 'BILLET SIMPLE POUR L'ALASKA' vient d'être publié !</p><br>
+						<a href =''>Venez le découvrir !</a>
+						<br>";
+			 $headers[] = 'MIME-Version: 1.0';
+		     $headers[] = 'Content-type: text/html; charset=iso-8859-1';
+		     $headers[] = 'From: <delhougne.laura@outlook.fr>';
+		     $headers[] = 'Cc: delhougne.laura@outlook.fr';
+		     $headers[] = 'Bcc: delhougne.laura@outlook.fr';
+
+		     print_r($to);
+			//mail($to,$subject,$message,implode("\r\n", $headers));
+		}
 
 	}
 

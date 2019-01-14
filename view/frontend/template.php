@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -21,7 +21,7 @@
         if(isset($_SESSION['isConnect'])){ ?>
           <nav class="navbar navbar-expand-lg navbar-light fixed-top"  id="mainNav">
           <div class="container">
-            <a class="navbar-brand" href="index.php?action=indexView">JEAN FORTEROCHE</a>
+            <a class="navbar-brand" href="index.php?action=indexView#auteur">JEAN FORTEROCHE</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
               Menu
               <i class="fas fa-bars"></i>
@@ -29,7 +29,7 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                  <a class="nav-link" href="index.php?action=indexView">A propos</a>
+                  <a class="nav-link" href="index.php?action=indexView#about">A propos</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="index.php?action=postsIndexView">Episodes</a>
@@ -52,7 +52,7 @@
         } else {?>
             <nav class="navbar navbar-expand-lg navbar-light fixed-top"  id="mainNav">
               <div class="container">
-                <a class="navbar-brand" href="index.php?action=indexView">JEAN FORTEROCHE</a>
+                <a class="navbar-brand" href="index.php?action=indexView#auteur">JEAN FORTEROCHE</a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                   Menu
                   <i class="fas fa-bars"></i>
@@ -60,7 +60,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                   <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                      <a class="nav-link" href="index.php?action=indexView">A propos</a>
+                      <a class="nav-link" href="index.php?action=indexView#about">A propos</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="index.php?action=postsIndexView">Episodes</a>

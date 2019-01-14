@@ -20,6 +20,10 @@
 					} elseif(isset($_POST['publish'])){
 						$episode->setDraft(false);
 						$episode->create();
+						
+						$newsletter = new MailController();
+						$newsletter->newsletter();
+						
 						header("Location: index.php?action=episodes");
   						exit();
 					}
@@ -85,6 +89,12 @@
 		public function getEpisodesList(){
 			$episodeList = new Episode();
 			$episodeList->episodeList();
+
+		}
+
+		public function getEpisodesPagination(){
+			$episodeList = new Episode();
+			$episodeList->getEpisodesPagination();
 		}
 
 		public function getDraftList(){
@@ -92,9 +102,19 @@
 			$draftList->draftList();
 		}
 
+		public function getDraftPagination(){
+			$episodeList = new Episode();
+			$episodeList->getDraftPagination();
+		}
+
 		public function getTrashList(){
 			$trashList = new Episode;
 			$trashList->trashList();
+		}
+
+		public function getTrashPagination(){
+			$episodeList = new Episode();
+			$episodeList->getTrashPagination();
 		}
 
 		public function getEpisodesListFront(){

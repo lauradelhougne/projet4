@@ -2,6 +2,7 @@
 require("controller/memberController.php");
 require("controller/episodeController.php");
 require("controller/commentController.php");
+require("controller/mailController.php");
 
 if(isset($_GET['action'])){
 	if($_GET['action'] == "indexView"){
@@ -75,6 +76,11 @@ if(isset($_GET['action'])){
 		$nextPost->getNextPost();
 	}
 
+	elseif($_GET['action'] == "contactForm"){
+		$contactForm= new MailController();
+		$contactForm->contactForm();
+		
+	}
 	elseif(($_GET['action'] == "admin")&&(!isset($_SESSION['isConnect']))){
 		require('view/backend/securityAdminViews/notConnected.php');
 	}
@@ -102,7 +108,7 @@ if(isset($_GET['action'])){
 		$connectAdmin->connectAdmin();
 	}
 	
-	elseif( ($_GET['action'] == "admin") && isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == 'ok' && $_SESSION['registerMpAdmin'] == "ok" && $_SESSION['adminConnected'] == "ok"){
+	elseif(isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == 'ok' && $_SESSION['registerMpAdmin'] == "ok" && $_SESSION['adminConnected'] == "ok"){
 
 
 		if($_GET['action'] == "admin"){

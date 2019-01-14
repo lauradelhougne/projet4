@@ -3,6 +3,7 @@
 	require(__DIR__."/../model/mailModel.php");
 	class Member extends DbModel{
 		private $mpAdmin = 0;
+		private $listNewsletter;
 
 		public function getMpAdmin(){
 			return $this->mpAdmin;
@@ -12,6 +13,14 @@
 			if (is_bool($mpAdmin)) {
 				$this->mpAdmin = $mpAdmin;
 			}
+		}
+
+		public function getListNewsletter(){
+			return $this->listNewsletter;
+		}
+
+		public function setListNewsletter($listNewsletter){
+			$this->listNewsletter = $listNewsletter;
 		}
 
 		public function formRegisterIsValid($pseudo, $pass, $passConfirm, $email){
@@ -54,7 +63,7 @@
 			$alert ="";
 			if(isset($_POST['pseudo']) && isset($_POST['pass']) && ($_POST['pseudo'] !="") && ($_POST['pass'] !="")){
 				$db = $this->dbConnect();
-				$q = $db->prepare('SELECT id, pseudo, pass, admin FROM members WHERE pseudo = :pseudo');
+				$q = $db->prepare('SELECT id, pseudo, pass, admin, newsletter FROM members WHERE pseudo = :pseudo');
 				$q->execute(array('pseudo' => $pseudo));
 				
 				if($datas = $q->fetch()){
@@ -64,13 +73,13 @@
 						$alert = "Mot de passe invalide";
 
 					} else{
-						
 						$_SESSION['isConnect'] = "connected";
 						setcookie("id",$datas['id']);
 						setcookie("pseudo",$datas['pseudo']);
 						if(($datas["admin"]? true : false) == true){
 							$_SESSION['isAdmin'] = "ok";
 						}
+						
 					}
 
 				} else{
@@ -200,6 +209,14 @@
 				unset($_COOKIE[$cookie_nom]);
 			}
 
+		}
+
+		public function getMembersListNewsletter(){
+			$db = $this->dbConnect();
+			$q = $db->prepare('SELECT mail FROM members WHERE (newsletter=1)');
+			$q->execute();
+			$list = $q->fetchAll();
+			$this->setListNewsletter($list);
 		}
 
 	}

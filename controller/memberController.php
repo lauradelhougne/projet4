@@ -65,5 +65,10 @@
 			header("Location: index.php");
 			exit();
 		}
+
+		public function getListNewsletter(){
+			$list = new Member();
+			$list->getListNewsletter();
+		}
 	}
 ?>

@@ -117,7 +117,7 @@
 
 		public function delete($id){
 			$db = $this->dbConnect();
-			$q = $db->prepare('DELETE FROM episodes WHERE id= :id ');
+			$q = $db->prepare('DELETE FROM comments WHERE id= :id ');
 			$q->execute(array('id' =>$id));
 			$q->closeCursor();
 		}
@@ -125,7 +125,23 @@
 		public function getCommentsListAdmin(){
 
 			$db = $this->dbConnect();
-			$q = $db->query('SELECT id, id_episode, pseudo, comment, DATE_FORMAT(date_comment, \'%d/%m/%Y à %H:%i:%s\') AS date_comment, approuved, undesirable FROM comments WHERE(approuved=0 OR undesirable=1) ORDER BY undesirable DESC, date_comment DESC');
+			$nbRows = $db->query("SELECT COUNT(*) FROM comments WHERE(approuved=0 OR undesirable=1) ORDER BY undesirable DESC, id DESC");
+			$result = $nbRows->fetch();
+			$count = $result[0];  
+			$limit = 10;
+			
+			if(isset($_GET['page'])){
+				$currentPage = intval($_GET['page']);
+				if($currentPage>$count){
+					$currentPage = $count;
+				}
+			}else{
+				$currentPage = 1;
+			}
+
+			$firstRow = ($currentPage - 1) * $limit;
+			
+			$q = $db->query('SELECT id, id_episode, pseudo, comment, DATE_FORMAT(date_comment, \'%d/%m/%Y à %H:%i:%s\') AS date_comment, approuved, undesirable FROM comments WHERE(approuved=0 OR undesirable=1) ORDER BY undesirable DESC, id DESC LIMIT ' .$firstRow.', '.$limit. '');
 
 			while ($datas = $q->fetch()){
 			?>
@@ -133,17 +149,19 @@
 					<td><?php echo $datas['date_comment']?></td>
 					<td><?php echo $datas['pseudo']?></td>
 					<td><?php echo $datas['comment']?></td>
-					<td style="text-align: center;"><a href="#">Voir la conversation</a></td>
+					<td style="text-align: center;"><a href="index.php?action=post&id=<?php echo $datas['id_episode']?>#ancreComs">Voir la conversation</a></td>
 					<td style="text-align: center;"><?php if(($datas['undesirable']?1:0) == 1){echo "<i class='fas fa-exclamation-triangle' style='color:red;' title='Signalé comme indésirable'></i>";}elseif(($datas['undesirable']?1:0) == 0){echo "<i class='fas fa-exclamation-triangle' style='color:#ddd;'></i>";}?></td>
 
 					<td><a href="index.php?action=approuveComment&id=<?php echo $datas['id']?>">Approuver</a></td>
 					<td><a onClick="confirm_click(<?php echo $datas['id']?>);" href="#">Supprimer</a></td>
-				</tr>
+				</tr> 
 			<?php
 			} 
 			$q->closeCursor();
 
-			?><script>
+			?>
+
+			<script>
 				function confirm_click(id){
 					$.confirm({
 						title: "Attention !",
@@ -161,9 +179,39 @@
 					    }
 					});
 				}
-			
 			</script>
 			<?php
+		}
+
+		public function getCommentsPagination(){
+			$db = $this->dbConnect();
+			$nbRows = $db->query("SELECT COUNT(*) FROM comments WHERE(approuved=0 OR undesirable=1) ORDER BY undesirable DESC, id DESC");
+			$result = $nbRows->fetch();
+			$count = $result[0];  
+			$limit = 10;
+			$total_pages = ceil($count / $limit);
+
+			if(isset($_GET['page'])){
+				$currentPage = intval($_GET['page']);
+				if($currentPage>$count){
+					$currentPage = $count;
+				}
+			}else{
+				$currentPage = 1;
+			}
+
+			echo '<p align="center"> Page(s) : ';
+
+			for($i = 1; $i <= $total_pages; $i++){
+				if ($i == $currentPage){
+					echo '['.$i.'] ';
+				}else{
+					echo '<a href="index.php?action=coms&page='.$i.'">'.$i.'</a> ';
+				}
+			}
+			echo '</p>';
+
+			$nbRows->closeCursor();
 		}
 
 		public function getCommentsListFront($idEpisode){

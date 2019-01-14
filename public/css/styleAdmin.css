@@ -1,5 +1,5 @@
 .navbar-fixed-top {
-	background-color: #dddddd;
+	background-color: #343a40;
 	
 }
 body{
@@ -9,7 +9,7 @@ body{
 .sidebar-wrapper {
   border-radius: 0;
   
-  background-color: #ededed;
+  background-color: #343a40;
   padding-top: 70px;
  
 }
@@ -30,12 +30,12 @@ body{
 }
 
  #com, #article{
-	color:#b6a2a1;
+	color:#fff;
 	font-weight: bold;
 }
 
 a#com:active{
-	color:#3fb7c4;
+	color:#2becff;
 	font-weight: bold;
 }
 
@@ -44,11 +44,11 @@ a#com:active{
 }
 
 #com:hover, #article:hover{
-	color: #00b8ca;
+	color: #2becff;
 }
 
 #off{
-	color:#000000;
+	color:#fff;
 }
 
 #off:hover{
@@ -58,7 +58,7 @@ a#com:active{
 .navbar-brand{
 	font-size: 1.2em;
 	margin-left: 10px;
-	color: #000000;
+	color: #fff;
 	font-weight: bold;
 }
 
@@ -107,27 +107,28 @@ h1{
 #creer{
 	-moz-box-shadow:inset 0px 39px 0px -24px #3fb7c4;
 	-webkit-box-shadow:inset 0px 39px 0px -24px #3fb7c4;
-	box-shadow:inset 0px 39px 0px -24px #3fb7c4;
-	background-color:#00acbe;
+	box-shadow:inset 0px 39px 0px -24px #01b6d3f7;
+	background-color:#00b0cc;
 }
 
 #brouillon{
 	-moz-box-shadow:inset 0px 39px 0px -24px #999999;
 	-webkit-box-shadow:inset 0px 39px 0px -24px #999999;
-	box-shadow:inset 0px 39px 0px -24px #999999;
-	background-color:#8d8d8d;
+	box-shadow:inset 0px 39px 0px -24px #787c82;
+	background-color:#71757c;
 }
 
 #corbeille{
 	-moz-box-shadow:inset 0px 39px 0px -24px #e67a73;
 	-webkit-box-shadow:inset 0px 39px 0px -24px #e67a73;
-	box-shadow:inset 0px 39px 0px -24px #e67a73;
-	background-color:#e4685d;
+	box-shadow:inset 0px 39px 0px -24px #b40b00;
+	background-color:#a50000;
 }
 
 .table{
 	font-weight: bold;
-    background-color: #fafafa;
+    background-color: #fcfcfc;
+    /* #fafafa */
 }
 
 th{
@@ -152,6 +153,7 @@ td{
 
 #publish, #draft{
 	margin: 20px;
+	font-weight: bold;
 }
 
 h2.navbar-brand{
@@ -163,7 +165,14 @@ h2.navbar-brand{
     right: 3em;
 }
 
+#retour{
+	color: #fff;
+}
 
+.jc-bs3-row.row.justify-content-md-center.justify-content-sm-center.justify-content-xs-center.justify-content-lg-center{
+	font-weight: bold;
+	
+}
 
 #idHidden{
 	/*display: none;

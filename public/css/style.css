@@ -539,6 +539,39 @@ p.comment{
   display: none;
 }
 
+.form-control.inputContact::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+ font-family: 'Poiret One', cursive;
+ font-weight: bold;
+}
+.form-control.inputContact::-moz-placeholder { /* Firefox 19+ */
+  font-family: 'Poiret One', cursive;
+  font-weight: bold;
+}
+.form-control.inputContact:-ms-input-placeholder { /* IE 10+ */
+ font-family: 'Poiret One', cursive;
+ font-weight: bold;
+}
+.form-control.inputContact:-moz-placeholder { /* Firefox 18- */
+  font-family: 'Poiret One', cursive;
+  font-weight: bold;
+
+}
+
+#ancreComs{
+  position: absolute;
+  margin-top: -30px;
+}
+
+#about{
+  position: absolute;
+  margin-top: -50px;
+}
+
+#auteur{
+  position: absolute;
+  margin-top: -50px;
+}
+
 @media only screen and (max-width: 768px){
   .h1Admin{
     margin-top: 40px;

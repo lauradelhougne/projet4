@@ -29,9 +29,7 @@
         $getList->getEpisodesListFront();
       ?>
 
-      <div class="clearfix">
-        <a class="btn btn-primary float-right" href="#">Suite &rarr;</a>
-      </div>
+      
     </div>
   </div>
 </div>

@@ -25,9 +25,16 @@
 			$commentsList->getCommentsListAdmin();
 		}
 
+		public function getCommentsPagination(){
+			$commentsList = new Comment();
+			$commentsList->getCommentsPagination();
+		}
+
 		public function deleteComment(){
 			$deleteComment = new Comment();
 			$deleteComment->delete(htmlspecialchars($_GET['id']));
+			header("Location: index.php?action=coms");
+			exit();
 		}
 
 		public function approuveComment(){

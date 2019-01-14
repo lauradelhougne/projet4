@@ -25,6 +25,9 @@ ob_start();?>
       ?>
     </tbody>
   </table>
+   <?php
+        $getList->getTrashPagination();
+   ?>
 </div>
 
 

@@ -4,7 +4,7 @@ ob_start();?>
 <h1>Commentaires</h1>
 
 <div class="container">            
-  <table class="table table-bordered">
+  <table id="dtBasic" class="table table-bordered " >
     <thead>
       <tr>
       	<th>DATE</th>
@@ -23,7 +23,11 @@ ob_start();?>
       ?>
     </tbody>
   </table>
+  <?php
+    $getList->getCommentsPagination();
+  ?>
 </div>
+
 
 <?php 
 $content = ob_get_clean();
