@@ -24,7 +24,7 @@
     <div class="col-lg-8 col-md-10 mx-auto">
       <p>Pour toute demande ou prise de contact professionnelle, merci de remplir le formulaire ci-dessous :</p>
       
-      <form form action="index.php?action=contactForm" method="post" id="contactForm" novalidate>
+      <form action="index.php?action=contactForm" method="post" id="contactForm" novalidate>
         <div class="control-group">
           <div class="form-group floating-label-form-group controls">
             <label>Nom</label>
@@ -62,7 +62,7 @@
         </div>
         <br>
         <div id="success"></div>
-        <div class="form-group">
+        <div class="form-group" style="font-weight: bold;">
           <button type="submit" class="btn btn-primary" id="sendMessageButton">Envoyer</button>
            <?php if(isset($alert)){echo $alert;}?>
         </div>

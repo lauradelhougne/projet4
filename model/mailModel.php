@@ -63,58 +63,61 @@
 
 		public function mailMemberRegister($pseudo, $email){
 			$to = $email;
-			$subject = "Inscription membre réussie";
-			$message = "<p>Bonjour <?php echo $pseudo?></p>,<br>
+			$subject = '=?UTF-8?B?'.base64_encode("Inscription membre réussie").'?=';
+			$message = utf8_decode("<p>Bonjour ".$pseudo.",</p>
 						<p>Votre inscription est réussie, et votre compte a été créé! </p>
 						<p>A bientot sur notre Blog</p>
 						<br>
-						<p>Le site 'BILLET SIMPLE POUR L'ALASKA'</p>";
-			 $headers[] = 'MIME-Version: 1.0';
-		     $headers[] = 'Content-type: text/html; charset=iso-8859-1';
+						<p>Le site 'BILLET SIMPLE POUR L'ALASKA'</p>");
 		    
-		     $headers[] = 'From: <delhougne.laura@outlook.fr>';
-		     $headers[] = 'Cc: delhougne.laura@outlook.fr';
-		     $headers[] = 'Bcc: delhougne.laura@outlook.fr';
+		     $headers = array('From: delhougne.laura@gmail.com',
+						     'Reply-To: delhougne.laura@gmail.com',
+						     'Cci: delhougne.laura@gmail.com',
+							 'MIME-Version: 1.0',
+						     'Content-type: text/html; charset=iso-8859-1',
+						     'Content-Transfer-Encoding: 8bit');
 
-			//mail($to,$subject,$message,implode("\r\n", $headers));
+			mail($to,$subject,$message,implode("\r\n", $headers));
 		}
 
 		public function contactForm($name, $entreprise, $email, $phone, $message){
-			$to = $email;
-			$subject = "Demande de contact";
-			$message = "<p>Bonjour Mr Forteroche,</p><br>
+			$to = "delhougne.laura@gmail.com";
+			$subject = '=?UTF-8?B?'.base64_encode("Demande de contact").'?=';
+			$message = utf8_decode("<p>Bonjour Mr Forteroche,</p><br>
 						<p>Vous avez reçu un message :</p>
 						<p>Nom : ".$name."</p>
 						<p>Entreprise : ".$entreprise."</p>
 						<p>Adresse mail : ".$email."</p>
 						<p>Telephone : ".$phone."</p>
 						<p>Message : ".$message."</p>
-						<br>";
-			 $headers[] = 'MIME-Version: 1.0';
-		     $headers[] = 'Content-type: text/html; charset=iso-8859-1';
-		    
-		     $headers[] = 'From: <delhougne.laura@outlook.fr>';
-		     $headers[] = 'Cc: delhougne.laura@outlook.fr';
-		     $headers[] = 'Bcc: delhougne.laura@outlook.fr';
+						<br>"
+						);
 
-			//mail($to,$subject,$message,implode("\r\n", $headers));
+			$headers = array('From: ' .$email,
+						     'Reply-To: ' .$email,
+							 'MIME-Version: 1.0',
+						     'Content-type: text/html; charset=iso-8859-1',
+						     'Content-Transfer-Encoding: 8bit');
+
+			mail($to,$subject,$message,implode("\r\n", $headers));
 		}
 
 		public function newsletter($id){
 			$to = $this->getTo();
-			$subject = "Demande de contact";
-			$message = "<p>Bonjour,</p><br>
+			$subject = "Newsletter";
+			$message = utf8_decode("<p>Bonjour,</p><br>
 						<p>Un nouvel épisode vient du roman 'BILLET SIMPLE POUR L'ALASKA' vient d'être publié !</p><br>
 						<a href =''>Venez le découvrir !</a>
-						<br>";
-			 $headers[] = 'MIME-Version: 1.0';
-		     $headers[] = 'Content-type: text/html; charset=iso-8859-1';
-		     $headers[] = 'From: <delhougne.laura@outlook.fr>';
-		     $headers[] = 'Cc: delhougne.laura@outlook.fr';
-		     $headers[] = 'Bcc: delhougne.laura@outlook.fr';
+						<br>"
+						);
+			$headers = array('From: delhougne.laura@gmail.com',
+						     'Reply-To: delhougne.laura@gmail.com',
+						     'Cci: delhougne.laura@gmail.com',
+							 'MIME-Version: 1.0',
+						     'Content-type: text/html; charset=iso-8859-1',
+						     'Content-Transfer-Encoding: 8bit');
 
-		     print_r($to);
-			//mail($to,$subject,$message,implode("\r\n", $headers));
+			mail($to,$subject,$message,implode("\r\n", $headers));
 		}
 
 	}

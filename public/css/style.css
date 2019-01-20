@@ -44,14 +44,30 @@ p {
     border-radius: .25rem;
 }
 
+div.py-5.bg-dark{
+  min-height: 40em;
+}
+
 .formContainer input, .formContainer label{
   margin: auto;
   margin-left: 0;
   margin-right: 0;
 }
 
+p{
+  text-align: justify;
+}
+
 p a {
   text-decoration: underline;
+}
+
+.card-body{
+  font-weight: bold;
+}
+
+.card-body form{
+  font-weight: normal;
 }
 
 h1,
@@ -74,6 +90,7 @@ h6,
 
 .indexH1{
   text-align: center;
+  font-size: 2.5rem;
 }
 
 a {
@@ -557,6 +574,11 @@ p.comment{
 
 }
 
+textarea#comment.form-control{
+  font-size: 1em;
+  font-weight: bold;
+}
+
 #ancreComs{
   position: absolute;
   margin-top: -30px;
@@ -570,6 +592,24 @@ p.comment{
 #auteur{
   position: absolute;
   margin-top: -50px;
+}
+
+.pagination {
+  text-align: center;
+}
+
+.idHidden{
+  display: none;
+}
+
+#legalNotice{
+  padding: 80px;
+  color: #ffffffde;
+  background-color: #343a40;
+}
+
+#legalNotice a{
+  color : #ffffffde;
 }
 
 @media only screen and (max-width: 768px){

@@ -17,14 +17,14 @@
 </header>
 
 <section class="py-5">
-  <a href id="about"></a>
+  <a id="about"></a>
   <div class="container">
-    <h1 class="indexH1">A propos</h1>
+    <h2 class="indexH1">A propos</h2>
     <p>Et quoniam inedia gravi adflictabantur, locum petivere Paleas nomine, vergentem in mare, valido muro firmatum, ubi conduntur nunc usque commeatus distribui militibus omne latus Isauriae defendentibus adsueti. circumstetere igitur hoc munimentum per triduum et trinoctium et cum neque adclivitas ipsa sine discrimine adiri letali, nec cuniculis quicquam geri posset, nec procederet ullum obsidionale commentum, maesti excedunt postrema vi subigente maiora viribus adgressuri. </p>
   </div>
-  <a href id="auteur"></a> 
+  <a id="auteur"></a> 
   <div class="container">
-    <h1 class="indexH1">L'auteur</h1>
+    <h2 class="indexH1">L'auteur</h2>
     <p>Et quoniam inedia gravi adflictabantur, locum petivere Paleas nomine, vergentem in mare, valido muro firmatum, ubi conduntur nunc usque commeatus distribui militibus omne latus Isauriae defendentibus adsueti. circumstetere igitur hoc munimentum per triduum et trinoctium et cum neque adclivitas ipsa sine discrimine adiri letali, nec cuniculis quicquam geri posset, nec procederet ullum obsidionale commentum, maesti excedunt postrema vi subigente maiora viribus adgressuri.</p>
   </div>
 </section>

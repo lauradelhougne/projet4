@@ -1,4 +1,7 @@
 <?php
+ ob_start();
+?>
+<?php
 	require_once(__DIR__."/../model/mailModel.php");
 	require_once(__DIR__."/../model/memberModel.php");
 
@@ -25,11 +28,11 @@
 		public function newsletter(){
 			$getList = new Member();
 			$getList->getMembersListNewsletter();
-			$getList->getListNewsletter();
+			$list = $getList->getListNewsletter();
+
 			$newsletter = new Mail();
-			$newsletter->setTo($getList);
+			$newsletter->setTo($list);
 			$newsletter->newsletter($_POST['id']);
-			print_r($newsletter->getTo());
 		}
 	}
 ?>

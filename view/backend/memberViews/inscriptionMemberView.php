@@ -8,7 +8,7 @@ ob_start();?>
             <div class="formContainer col-md-6 col-sm-10 col-10" style="text-align: center; margin:auto; padding: 0;">
                 <h5 class="card-header">Inscription</h5>
                 <div class="card-body">
-                    <form action="index.php?action=inscribe" method="post" class="formMember">
+                    <form action="index.php?action=register" method="post" class="formMember">
                         <div class="form-group row">
                             <label for="pseudo" class="col-sm-6 col-form-label">Pseudo</label>  <input type="text" name="pseudo" id="pseudo" class=" col-md-5 col-sm-10 col-10"><br>
                         </div>

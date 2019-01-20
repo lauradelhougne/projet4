@@ -200,13 +200,13 @@
 				$currentPage = 1;
 			}
 
-			echo '<p align="center"> Page(s) : ';
+			echo '<p class="pagination"> Page(s) : ';
 
 			for($i = 1; $i <= $total_pages; $i++){
 				if ($i == $currentPage){
 					echo '['.$i.'] ';
 				}else{
-					echo '<a href="index.php?action=coms&page='.$i.'">'.$i.'</a> ';
+					echo '<a href="index.php?action=coms&page='.$i.'" style="margin-left: 0.2em;">'.$i.'</a> ';
 				}
 			}
 			echo '</p>';

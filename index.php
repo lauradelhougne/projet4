@@ -22,10 +22,13 @@ if(isset($_GET['action'])){
 	elseif($_GET['action'] == "inscriptionMemberView"){
 		require('view/backend/memberViews/inscriptionMemberView.php');
 	}
+	elseif($_GET['action'] == "legalNotice"){
+		require('view/frontend/legalNotice.php');
+	}
 
-	elseif($_GET['action'] == "inscribe"){
+	elseif($_GET['action'] == "register"){
 		$memberController = new MemberController();
-		$memberController->inscribe();
+		$memberController->register();
 	}
 
 	elseif($_GET['action'] == "connect" && empty($_SESSION['isAdmin'])){
@@ -76,11 +79,22 @@ if(isset($_GET['action'])){
 		$nextPost->getNextPost();
 	}
 
+	elseif($_GET['action'] == "postComment"){
+			$frontController = new CommentController();
+			$frontController->postComment();
+		}
+
 	elseif($_GET['action'] == "contactForm"){
 		$contactForm= new MailController();
 		$contactForm->contactForm();
 		
 	}
+
+	elseif($_GET['action'] == "newsletterRegister"){
+		$newsletter= new MemberController();
+		$newsletter->newsletterRegister();
+	}
+
 	elseif(($_GET['action'] == "admin")&&(!isset($_SESSION['isConnect']))){
 		require('view/backend/securityAdminViews/notConnected.php');
 	}
@@ -160,10 +174,7 @@ if(isset($_GET['action'])){
 			require('view/backend/adminViews/comsAdmin.php');
 		}
 
-		elseif($_GET['action'] == "postComment"){
-			$frontController = new CommentController();
-			$frontController->postComment();
-		}
+		
 
 		elseif($_GET['action'] == "approuveComment"){
 

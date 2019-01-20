@@ -134,12 +134,12 @@
 		}
 
 
-		public function episodeList(){
+		public function episodeListAdmin(){
 			$db = $this->dbConnect();
 			$nbRows = $db->query("SELECT COUNT(*) FROM episodes WHERE (draft=0 AND trash=0) ORDER BY id DESC");
 			$result = $nbRows->fetch();
 			$count = $result[0];
-			$limit = 4;
+			$limit = 10;
 			if(isset($_GET['page'])){
 				$currentPage = intval($_GET['page']);
 				if($currentPage>$count){
@@ -157,10 +157,10 @@
 			?>
 				<tr>
 					<td><?php echo $datas['title']?></td>
-					<td class="tdContent"><?php echo substr($datas['content'], 0, 65). " ..." ?></td>
+					<td class="tdContent"><?php echo substr($datas['content'], 0, 100). " ..." ?></td>
 					<td class="tdDate"><?php echo $datas['date_create']?></td>
 					<td><a href="index.php?action=createEpisodes&id=<?php echo $datas['id']?>">Modifier</a></td>
-					<td><a href="index.php?action=moveToTrash&id=<?php echo $datas['id']?>">Supprimer</a></td>
+					<td><a href="index.php?action=moveToTrash&id=<?php echo $datas['id']?>">Corbeille</a></td>
 				</tr>
 			<?php
 			} 
@@ -173,7 +173,7 @@
 			$nbRows = $db->query("SELECT COUNT(*) FROM episodes WHERE (draft=0 AND trash=0) ORDER BY id DESC");
 			$result = $nbRows->fetch();
 			$count = $result[0];  
-			$limit = 4;
+			$limit = 10;
 			$total_pages = ceil($count / $limit);
 
 			if(isset($_GET['page'])){
@@ -185,20 +185,20 @@
 				$currentPage = 1;
 			}
 
-			echo '<p align="center"> Page(s) : ';
+			echo '<p class="pagination"> Page(s) : ';
 
 			for($i = 1; $i <= $total_pages; $i++){
 				if ($i == $currentPage){
 					echo '['.$i.'] ';
 				}else{
-					echo '<a href="index.php?action=episodes&page='.$i.'">'.$i.'</a> ';
+					echo '<a href="index.php?action=episodes&page='.$i.'" style="margin-left: 0.2em;">' .$i. '</a> ';
 				}
 			}
 			echo '</p>';
 			$nbRows->closeCursor();
 		}
 
-		public function draftList(){
+		public function draftListAdmin(){
 			$db = $this->dbConnect();
 			$nbRows = $db->query("SELECT COUNT(*) FROM episodes WHERE (draft=1 AND trash=0) ORDER BY id DESC");
 			$result = $nbRows->fetch();
@@ -223,8 +223,8 @@
 				<tr>
 					<td><?php echo $datas['title']?></td>
 					<td class="tdContent"><?php 
-						echo substr($datas['content'], 0, 65); 
-						if(strlen($datas['content']) >= 65){echo " ...";}?></td>
+						echo substr($datas['content'], 0, 100); 
+						if(strlen($datas['content']) >= 100){echo " ...";}?></td>
 					<td><a href="index.php?action=createEpisodes&id=<?php echo $datas['id']?>">Continuer de rédiger</a></td>
 					<td><a href="index.php?action=moveToTrash&id=<?php echo $datas['id']?>">Supprimer</a></td>
 				</tr>
@@ -252,20 +252,20 @@
 				$currentPage = 1;
 			}
 
-			echo '<p align="center"> Page(s) : ';
+			echo '<p class="pagination"> Page(s) : ';
 
 			for($i = 1; $i <= $total_pages; $i++){
 				if ($i == $currentPage){
 					echo '['.$i.'] ';
 				}else{
-					echo '<a href="index.php?action=drafts&page='.$i.'">'.$i.'</a>';
+					echo '<a href="index.php?action=drafts&page='.$i.'" style="margin-left: 0.2em;">'.$i.'</a>';
 				}
 			}
 			echo '</p>';
 			$nbRows->closeCursor();
 		}
 
-		public function trashList(){
+		public function trashListAdmin(){
 			$db = $this->dbConnect();
 			$nbRows = $db->query("SELECT COUNT(*) FROM episodes WHERE trash=1 ORDER BY id DESC");
 			$result = $nbRows->fetch();
@@ -290,8 +290,8 @@
 				<tr>
 					<td><?php echo $datas['title']?></td>
 					<td class="tdContent"><?php 
-						echo substr($datas['content'], 0, 65); 
-						if(strlen($datas['content']) >= 65)
+						echo substr($datas['content'], 0, 100); 
+						if(strlen($datas['content']) >= 100)
 							{
 								echo " ...";
 							}?></td>
@@ -344,13 +344,13 @@
 				$currentPage = 1;
 			}
 
-			echo '<p align="center"> Page(s) : ';
+			echo '<p class="pagination"> Page(s) : ';
 
 			for($i = 1; $i <= $total_pages; $i++){
 				if ($i == $currentPage){
 					echo '['.$i.'] ';
 				}else{
-					echo '<a href="index.php?action=trash&page='.$i.'">'.$i.'</a> ';
+					echo '<a href="index.php?action=trash&page='.$i.'" style="margin-left: 0.2em;">'.$i.'</a> ';
 				}
 			}
 			echo '</p>';
@@ -362,7 +362,7 @@
 			$nbRows = $db->query("SELECT COUNT(*) FROM episodes WHERE (draft=0 AND trash=0) "); 
 			$result = $nbRows->fetch();
 			$count = $result[0];  
-			$limit = 3;
+			$limit = 5;
 			
 			$total_pages = ceil($count / $limit);
 
@@ -397,13 +397,13 @@
 			} 
 			$q->closeCursor();
 
-			echo '<p align="center"> Page(s) : ';
+			echo '<p class="pagination"> Page(s) : ';
 
 			for($i = 1; $i <= $total_pages; $i++){
 				if ($i == $currentPage){
 					echo '['.$i.'] ';
 				}else{
-					echo '<a href="index.php?action=postsIndexView&page='.$i.'">'.$i.'</a> ';
+					echo '<a href="index.php?action=postsIndexView&page='.$i.'" style="margin-left: 0.2em;">' .$i. '</a> ';
 				}
 			}
 			echo '</p>';
@@ -471,6 +471,14 @@
 				header("Location: index.php?action=post&id=". $id);
 				exit();
 			}
+		}
+
+		public function getFirstPost(){
+			$db = $this->dbConnect();
+			$q = $db->query('SELECT * FROM episodes WHERE (draft=0 AND trash=0) ORDER BY id ASC');
+			$datas = $q->fetch();
+			$this->setId($datas['id']);
+			
 		}
 	}
 

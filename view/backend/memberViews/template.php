@@ -13,6 +13,7 @@
     <link href="public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
     <link href="public/css/style.css" rel="stylesheet">
+    <link rel="icon" href="public/img/favicon.ico">
   </head>
 
   <body>

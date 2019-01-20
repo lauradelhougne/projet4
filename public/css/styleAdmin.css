@@ -64,7 +64,7 @@ a#com:active{
 
 .content.col-md-10{
 	background-color: #fff;
-	height: 100%;
+	min-height: 50em;
   
 }
 
@@ -175,6 +175,51 @@ h2.navbar-brand{
 }
 
 #idHidden{
-	/*display: none;
+	display: none;
 }
 
+#articleResp, #comResp, #retourResp{
+	display: none;
+}
+
+@media  (max-width: 1120px){
+	.sidebar-wrapper.col-md-2{
+		display : none;
+	}
+
+	.content.col-md-10{
+		margin: auto;
+	}
+
+	#articleResp, #comResp, #retourResp{
+		display: block;
+		color : #fff;
+	}
+
+	.rightButtons{
+		position: relative;
+    	margin: auto;
+    	right: 0;
+	}
+
+
+}
+
+@media (min-width: 768px) and (max-width: 990px){
+	#brouillon, #corbeille{
+		margin-top: 20px;
+	}
+
+	h1, #creer{
+		margin-bottom: 0;
+	}
+
+	#creer{
+		margin-left: 0;
+		margin-right: 0;
+	}
+}
+
+
+
+}

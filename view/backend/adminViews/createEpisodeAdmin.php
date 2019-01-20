@@ -11,7 +11,7 @@ ob_start();?>
 </div>
 
 <div class="container">            
-  <form action="index.php?action=createFormEpisode" method="post">
+  <form action="index.php?action=createFormEpisode" method="post" style="font-weight: bold;">
 
     <label for="title" class="col-form-label" style="margin-bottom: 20px; font-weight: bold;">Titre de l'épisode</label> : 
     <input type="text" name="title" id="title" value="<?php 
@@ -19,13 +19,13 @@ ob_start();?>
         $modif = new Episode;
         $modif->getContentForModify(htmlspecialchars($_GET['id']));
         echo $modif->getTitle();
-      } ?>"><?= $alert ?><br>
+      } ?>"style="margin-right: 30px;"><?= $alert ?><br>
 
     <input type="text" name="id" id="idHidden" value="<?php 
       if(isset($_GET['id'])){
         echo $_GET['id'];
       } ?>
-    ">
+    " >
 
     <textarea name="content" id="textarea"><?php 
       if(isset($_GET['id'])){

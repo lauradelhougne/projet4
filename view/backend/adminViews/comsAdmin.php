@@ -11,7 +11,7 @@ ob_start();?>
         <th>PSEUDO</th>
         <th>COMMENTAIRE</th>
         <th>VOIR</th>
-        <th>MODERER</th>
+        <th>INDESIRABLE</th>
         <th>APPROUVER</th>
         <th>SUPPRIMER</th>
       </tr>

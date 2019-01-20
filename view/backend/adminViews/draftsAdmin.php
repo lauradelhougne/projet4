@@ -23,7 +23,7 @@ ob_start();?>
     <tbody>
       <?php
         $getList= new EpisodeController;
-        $getList->getDraftList();
+        $getList->getDraftListAdmin();
       ?>
     </tbody>
   </table>

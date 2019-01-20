@@ -1,0 +1,6 @@
+order deny,allow
+deny from all
+ErrorDocument 401 /view/backend/securityAdminViews/404.php
+ErrorDocument 403 /view/backend/securityAdminViews/404.php
+ErrorDocument 404 /view/backend/securityAdminViews/404.php
+ErrorDocument 500 /view/backend/securityAdminViews/404.php

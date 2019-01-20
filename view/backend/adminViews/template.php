@@ -15,16 +15,19 @@
     <link href="public/css/style.css" rel="stylesheet">
     <link href="public/css/styleAdmin.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
-
+    <link rel="icon" href="public/img/favicon.ico">
   </head>
 
-  <body style="min-width: 1519.200px;">
+  <body >
 
     <nav>
       <nav class="navbar navbar-default navbar-fixed-top">
         <h2 class="navbar-brand" href="#" >TABLEAU DE BORD</h2>
         
-        <div class="nav navbar-nav navbar-right">
+        <div class="nav navbar-nav navbar-right flex-row" style="font-weight: bold;">
+          <a  href="index.php?action=episodes" style="margin-right: 1em;"<?php if(($_GET['action'] == 'admin') OR ($_GET['action'] == 'episodes') OR ($_GET['action'] == 'drafts') OR ($_GET['action'] == 'trash') OR ($_GET['action'] == 'createEpisodes')){echo "style='color: #31ecff;'";}?> id="articleResp">Episodes</a>
+          <a  href="index.php?action=coms" style="margin-right: 1em;" <?php if($_GET['action'] == 'coms'){echo "style='color: #31ecff;'";}?> id="comResp">Commentaires</a>
+          <a href="index.php" style="margin-right: 1em;" id="retourResp">Retour</a>
           <a class="deconnect" href="index.php?action=deconnection" title="Déconnexion"><i class="fas fa-power-off" id="off"></i></a>
         </div>
       </nav>
@@ -52,7 +55,7 @@
 
     <footer style="background-color: #343a40; margin: 0; padding: 20px 0 20px;">
       <div class="container">
-          <p class="col-md-12 sm-12 text-center "><a href="#" style="color: #fff;  text-decoration: none;">Mentions légales</a></p>
+          <p class="col-md-12 sm-12 text-center "><a href="index.php?action=legalNotice" style="color: #fff;  text-decoration: none;">Mentions légales</a></p>
           <p class="col-md-12 sm-12 text-center " style="color: #fff;">Copyright &copy; Tous droits reservés</p>
       </div>
     </footer>

@@ -1,4 +1,7 @@
 <?php
+ ob_start();
+?>
+<?php
 	require(__DIR__."/../model/commentModel.php");
 
 	class CommentController{

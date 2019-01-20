@@ -1,7 +1,7 @@
 <?php 
-	$title = "Episode";	
+  $title = "Episode"; 
 
-	ob_start();	
+  ob_start(); 
 ?>
 
     <?php
@@ -28,7 +28,7 @@
           <form action="index.php?action=postComment" onsubmit="return verification()" method="post" id="commentForm">
             <div class="form-group">
               <label style="font-weight: bold;"><?= htmlspecialchars($_COOKIE["pseudo"])?></label>
-              <input type="text" name="idEpisode" value="<?php 
+              <input type="text" name="idEpisode" class="idHidden" value="<?php 
                 if(isset($_GET['id'])){
                   echo $_GET['id'];
                 } ?>
@@ -47,7 +47,7 @@
         <h5 class="card-header">Pour laisser un commentaire, <a href="index.php?action=connectionMemberView">connectez-vous</a> !</h5>
       </div>
     <?php } ?>
-      <a href id="ancreComs"></a>
+      <a id="ancreComs"></a>
       <?php 
         $commentsList = new CommentController;
         $commentsList->getCommentsListFront();
@@ -78,7 +78,7 @@
 </script>
 
 <?php
-	$content = ob_get_clean();
+  $content = ob_get_clean();
 
   require("footerView.php");
   require("template.php");

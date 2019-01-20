@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -13,6 +13,7 @@
     <link href="public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
     <link href="public/css/style.css" rel="stylesheet">
+    <link rel="icon" href="public/img/favicon.ico">
   </head>
 
   <body>
@@ -21,7 +22,7 @@
         if(isset($_SESSION['isConnect'])){ ?>
           <nav class="navbar navbar-expand-lg navbar-light fixed-top"  id="mainNav">
           <div class="container">
-            <a class="navbar-brand" href="index.php?action=indexView#auteur">JEAN FORTEROCHE</a>
+            <a class="navbar-brand" href="index.php?action=indexView">JEAN FORTEROCHE</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
               Menu
               <i class="fas fa-bars"></i>
@@ -52,7 +53,7 @@
         } else {?>
             <nav class="navbar navbar-expand-lg navbar-light fixed-top"  id="mainNav">
               <div class="container">
-                <a class="navbar-brand" href="index.php?action=indexView#auteur">JEAN FORTEROCHE</a>
+                <a class="navbar-brand" href="index.php?action=indexView">JEAN FORTEROCHE</a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                   Menu
                   <i class="fas fa-bars"></i>

@@ -1,5 +1,8 @@
 <?php
-	require(__DIR__."/../model/episodeModel.php");
+ ob_start();
+?>
+<?php
+	require_once(__DIR__."/../model/episodeModel.php");
 
 	class EpisodeController{
 
@@ -20,7 +23,6 @@
 					} elseif(isset($_POST['publish'])){
 						$episode->setDraft(false);
 						$episode->create();
-						
 						$newsletter = new MailController();
 						$newsletter->newsletter();
 						
@@ -86,9 +88,9 @@
 			exit();
 		}
 
-		public function getEpisodesList(){
+		public function getEpisodesListAdmin(){
 			$episodeList = new Episode();
-			$episodeList->episodeList();
+			$episodeList->episodeListAdmin();
 
 		}
 
@@ -97,9 +99,9 @@
 			$episodeList->getEpisodesPagination();
 		}
 
-		public function getDraftList(){
+		public function getDraftListAdmin(){
 			$draftList = new Episode;
-			$draftList->draftList();
+			$draftList->draftListAdmin();
 		}
 
 		public function getDraftPagination(){
@@ -107,9 +109,9 @@
 			$episodeList->getDraftPagination();
 		}
 
-		public function getTrashList(){
+		public function getTrashListAdmin(){
 			$trashList = new Episode;
-			$trashList->trashList();
+			$trashList->trashListAdmin();
 		}
 
 		public function getTrashPagination(){

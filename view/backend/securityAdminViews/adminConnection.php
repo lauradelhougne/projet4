@@ -28,7 +28,7 @@ ob_start();?>
                 </div>
             </div>
         </div>
-        <p style="color:#fff; text-align: center;">Déjà inscrit? <a href="index.php?action=connectionMemberView" style="color:#4be8ef;">Connectez-vous !</a></p>
+        
     </div>
 </div>
 

@@ -21,7 +21,7 @@ ob_start();?>
     <tbody>
       <?php
         $getList= new EpisodeController;
-        $getList->getTrashList();
+        $getList->getTrashListAdmin();
       ?>
     </tbody>
   </table>

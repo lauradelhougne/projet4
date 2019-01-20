@@ -46,7 +46,7 @@
       </div>
 
       <div class="container">
-          <p class="col-md-12 sm-12 text-center text-white"><a href="#" style="color: white;  text-decoration: none;">Mentions légales</a></p>
+          <p class="col-md-12 sm-12 text-center text-white"><a href="index.php?action=legalNotice" style="color: white;  text-decoration: none;">Mentions légales</a></p>
           <p class="col-md-12 sm-12 text-center text-white">Copyright &copy; Tous droits reservés</p>
 
         <p class="col-md-12 sm-12 text-center text-white"><a href="index.php?action=admin" style="color: white; text-decoration: none;">Administration</a></p>
